@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FitBuddy Users</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', path='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card wide">
+
+        <h1>FitBuddy</h1>
+
+        <h2>All Users</h2>
+
+
+        {% if users %}
+
+        {% for user in users %}
+
+        <div class="user-card">
+
+            <h3>{{ user.username }}</h3>
+
+            <p>
+                <strong>User ID:</strong>
+                {{ user.user_id }}
+            </p>
+
+            <p>
+                <strong>Age:</strong>
+                {{ user.age }}
+            </p>
+
+            <p>
+                <strong>Weight:</strong>
+                {{ user.weight }} kg
+            </p>
+
+            <p>
+                <strong>Goal:</strong>
+                {{ user.fitness_goal }}
+            </p>
+
+            <p>
+                <strong>Intensity:</strong>
+                {{ user.workout_intensity }}
+            </p>
+
+            {% for plan in plans %}
+
+                {% if plan.user_id == user.user_id %}
+
+                <h4>Original Plan</h4>
+
+                <pre>{{ plan.original_plan }}</pre>
+
+
+                {% if plan.updated_plan %}
+
+                <h4>Updated Plan</h4>
+
+                <pre>{{ plan.updated_plan }}</pre>
+
+                {% endif %}
+
+
+                {% if plan.nutrition_tip %}
+
+                <h4>Nutrition Tip</h4>
+
+                <p>
+                    {{ plan.nutrition_tip }}
+                </p>
+
+                {% endif %}
+
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+
+        {% endfor %}
+
+        {% else %}
+
+        <p>No users found.</p>
+
+        {% endif %}
+
+
+        <a
+            class="back-link"
+            href="/"
+        >
+            Back to Home
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
